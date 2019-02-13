@@ -2,6 +2,7 @@ import React from 'react';
 import { render, cleanup } from 'react-testing-library';
 import Image from './Image';
 import { image } from './testdata/image';
+import 'jest-prop-type-error';
 
 afterEach(cleanup);
 
@@ -175,15 +176,15 @@ test('Throws error when image data is not shaped as expected from the API', () =
     alt: 'Who cares? This is not meant to work anyway.'
   };
 
-  // expect(() => {
-  //   render(<Image image={badData} />);
-  // }).toThrow();
+  expect(() => {
+    render(<Image image={badData} />);
+  }).toThrow();
 });
 
 test('Throws error when none of the following props: image or fallbackSrc, are provided', () => {
-  // expect(() => {
-  //   render(<Image />);
-  // }).toThrow();
+  expect(() => {
+    render(<Image />);
+  }).toThrow();
 });
 
 test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () => {
@@ -193,14 +194,14 @@ test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () =
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
   };
 
-  // expect(() => {
-  //   render(
-  //     <Image
-  //       fallbackSrcSet={props.fallbackSrcSet}
-  //       fallbackAlt={props.fallbackAlt}
-  //     />
-  //   );
-  // }).toThrow();
+  expect(() => {
+    render(
+      <Image
+        fallbackSrcSet={props.fallbackSrcSet}
+        fallbackAlt={props.fallbackAlt}
+      />
+    );
+  }).toThrow();
 });
 
 test('Throws error when neither a proper image object or fallbackAlt is provided', () => {
@@ -211,12 +212,12 @@ test('Throws error when neither a proper image object or fallbackAlt is provided
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
   };
 
-  // expect(() => {
-  //   render(
-  //     <Image
-  //       fallbackSrc={props.fallbackSrc}
-  //       fallbackSrcSet={props.fallbackSrcSet}
-  //     />
-  //   );
-  // }).toThrow();
+  expect(() => {
+    render(
+      <Image
+        fallbackSrc={props.fallbackSrc}
+        fallbackSrcSet={props.fallbackSrcSet}
+      />
+    );
+  }).toThrow();
 });
