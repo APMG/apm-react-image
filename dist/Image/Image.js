@@ -37,10 +37,10 @@ function generateAttrs(props) {
   } else if (props.fallbackSrcSet) {
     imageProps.srcSet = props.fallbackSrcSet;
     imageProps.src = props.fallbackSrc;
-    imageProps.alt = props.fallbackAlt;
+    imageProps.alt = props.alt;
   } else {
     imageProps.src = props.fallbackSrc;
-    imageProps.alt = props.fallbackAlt;
+    imageProps.alt = props.alt;
   }
 
   return imageProps;

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, cleanup } from 'react-testing-library';
 import Image from './Image';
 import { image } from './testdata/image';
+import 'jest-prop-type-error';
 afterEach(cleanup); // SUCCESSES
 
 test('Creates an img with the correct alt, src, and srcSet when aspectRatio prop is provided', function () {
@@ -65,15 +66,15 @@ test('Creates an img with the correct alt, src, and defaut srcSet when no aspect
   expect(container.firstChild.getAttribute('src')).toBe('https://img.publicradio.org/images/20181220-serena-brook-opens-our-show-at-the-town-hall.jpg');
   expect(container.firstChild.getAttribute('srcset')).toBe(image.srcset);
 });
-test('Creates an img when an image object is not provided, but a fallbackSrc, fallbackSrcSet and fallbackAlt are provided', function () {
+test('Creates an img when an image object is not provided, but a fallbackSrc, fallbackSrcSet and alt are provided', function () {
   var props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrc: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
     fallbackSrcSet: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
   };
 
   var _render5 = render(React.createElement(Image, {
-    fallbackAlt: props.fallbackAlt,
+    alt: props.alt,
     fallbackSrc: props.fallbackSrc,
     fallbackSrcSet: props.fallbackSrcSet
   })),
@@ -83,33 +84,33 @@ test('Creates an img when an image object is not provided, but a fallbackSrc, fa
   expect(container.firstChild.getAttribute('src')).toBe('https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg');
   expect(container.firstChild.getAttribute('srcset')).toBe('https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w');
 });
-test('Creates the correct img when an image prop and all of the fallbacks are provided (i.e. prioritizes image prop)', function () {
+test('Creates the correct img when an image prop and all of the fallbacks are provided (i.e. prioritizes alt prop)', function () {
   var props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrc: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
     fallbackSrcSet: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
   };
 
   var _render6 = render(React.createElement(Image, {
     image: image,
-    fallbackAlt: props.fallbackAlt,
+    alt: props.alt,
     fallbackSrc: props.fallbackSrc,
     fallbackSrcSet: props.fallbackSrcSet
   })),
       container = _render6.container;
 
-  expect(container.firstChild.getAttribute('alt')).toBe('Serena Brook opens our show at The Town Hall');
+  expect(container.firstChild.getAttribute('alt')).toBe('Some nice lawn chairs');
   expect(container.firstChild.getAttribute('src')).toBe('https://img.publicradio.org/images/20181220-serena-brook-opens-our-show-at-the-town-hall.jpg');
   expect(container.firstChild.getAttribute('srcset')).toBe(image.srcset);
 });
-test('Creates the a basic img with an empty srcset if only a fallbackAlt and fallbackSrc are provided', function () {
+test('Creates the a basic img with an empty srcset if only a alt and fallbackSrc are provided', function () {
   var props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrc: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg'
   };
 
   var _render7 = render(React.createElement(Image, {
-    fallbackAlt: props.fallbackAlt,
+    alt: props.alt,
     fallbackSrc: props.fallbackSrc
   })),
       container = _render7.container;
@@ -124,37 +125,39 @@ test('Throws error when image data is not shaped as expected from the API', func
     src: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
     srcset: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w',
     alt: 'Who cares? This is not meant to work anyway.'
-  }; // expect(() => {
-  //   render(<Image image={badData} />);
-  // }).toThrow();
+  };
+  expect(function () {
+    render(React.createElement(Image, {
+      image: badData
+    }));
+  }).toThrow();
 });
-test('Throws error when none of the following props: image or fallbackSrc, are provided', function () {// expect(() => {
-  //   render(<Image />);
-  // }).toThrow();
+test('Throws error when none of the following props: image or fallbackSrc, are provided', function () {
+  expect(function () {
+    render(React.createElement(Image, null));
+  }).toThrow();
 });
 test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', function () {
   var props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrcSet: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
-  }; // expect(() => {
-  //   render(
-  //     <Image
-  //       fallbackSrcSet={props.fallbackSrcSet}
-  //       fallbackAlt={props.fallbackAlt}
-  //     />
-  //   );
-  // }).toThrow();
+  };
+  expect(function () {
+    render(React.createElement(Image, {
+      fallbackSrcSet: props.fallbackSrcSet,
+      alt: props.alt
+    }));
+  }).toThrow();
 });
-test('Throws error when neither a proper image object or fallbackAlt is provided', function () {
+test('Throws error when neither a proper image object or alt is provided', function () {
   var props = {
     fallbackSrc: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
     fallbackSrcSet: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
-  }; // expect(() => {
-  //   render(
-  //     <Image
-  //       fallbackSrc={props.fallbackSrc}
-  //       fallbackSrcSet={props.fallbackSrcSet}
-  //     />
-  //   );
-  // }).toThrow();
+  };
+  expect(function () {
+    render(React.createElement(Image, {
+      fallbackSrc: props.fallbackSrc,
+      fallbackSrcSet: props.fallbackSrcSet
+    }));
+  }).toThrow();
 });
