@@ -38,10 +38,10 @@ function generateAttrs(props) {
   } else if (props.fallbackSrcSet) {
     imageProps.srcSet = props.fallbackSrcSet;
     imageProps.src = props.fallbackSrc;
-    imageProps.alt = props.fallbackAlt;
+    imageProps.alt = props.alt;
   } else {
     imageProps.src = props.fallbackSrc;
-    imageProps.alt = props.fallbackAlt;
+    imageProps.alt = props.alt;
   }
 
   return imageProps;
@@ -143,7 +143,7 @@ Image.propTypes = {
   elementClass: PropTypes.string,
   fallbackSrcSet: PropTypes.string,
   fallbackSrc: PropTypes.string,
-  fallbackAlt: PropTypes.string,
+  alt: PropTypes.string,
   sizes: PropTypes.string,
   mustProvideOne: function(props) {
     if (!props['image'] && !props['fallbackSrc']) {
@@ -153,7 +153,7 @@ Image.propTypes = {
     }
   },
   mustProvideAlt: function(props) {
-    if (!props['image'] && !props['fallbackAlt']) {
+    if (!props['image'] && !props['alt']) {
       return new Error(
         'Please provide either a properly formatted image JSON object or an image alt'
       );

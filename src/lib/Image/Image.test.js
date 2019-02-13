@@ -90,9 +90,9 @@ test('Creates an img with the correct alt, src, and defaut srcSet when no aspect
   expect(container.firstChild.getAttribute('srcset')).toBe(image.srcset);
 });
 
-test('Creates an img when an image object is not provided, but a fallbackSrc, fallbackSrcSet and fallbackAlt are provided', () => {
+test('Creates an img when an image object is not provided, but a fallbackSrc, fallbackSrcSet and alt are provided', () => {
   const props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrc:
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
     fallbackSrcSet:
@@ -101,7 +101,7 @@ test('Creates an img when an image object is not provided, but a fallbackSrc, fa
 
   const { container } = render(
     <Image
-      fallbackAlt={props.fallbackAlt}
+      alt={props.alt}
       fallbackSrc={props.fallbackSrc}
       fallbackSrcSet={props.fallbackSrcSet}
     />
@@ -118,9 +118,9 @@ test('Creates an img when an image object is not provided, but a fallbackSrc, fa
   );
 });
 
-test('Creates the correct img when an image prop and all of the fallbacks are provided (i.e. prioritizes image prop)', () => {
+test('Creates the correct img when an image prop and all of the fallbacks are provided (i.e. prioritizes alt prop)', () => {
   const props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrc:
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
     fallbackSrcSet:
@@ -130,14 +130,14 @@ test('Creates the correct img when an image prop and all of the fallbacks are pr
   const { container } = render(
     <Image
       image={image}
-      fallbackAlt={props.fallbackAlt}
+      alt={props.alt}
       fallbackSrc={props.fallbackSrc}
       fallbackSrcSet={props.fallbackSrcSet}
     />
   );
 
   expect(container.firstChild.getAttribute('alt')).toBe(
-    'Serena Brook opens our show at The Town Hall'
+    'Some nice lawn chairs'
   );
   expect(container.firstChild.getAttribute('src')).toBe(
     'https://img.publicradio.org/images/20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
@@ -145,15 +145,15 @@ test('Creates the correct img when an image prop and all of the fallbacks are pr
   expect(container.firstChild.getAttribute('srcset')).toBe(image.srcset);
 });
 
-test('Creates the a basic img with an empty srcset if only a fallbackAlt and fallbackSrc are provided', () => {
+test('Creates the a basic img with an empty srcset if only a alt and fallbackSrc are provided', () => {
   const props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrc:
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg'
   };
 
   const { container } = render(
-    <Image fallbackAlt={props.fallbackAlt} fallbackSrc={props.fallbackSrc} />
+    <Image alt={props.alt} fallbackSrc={props.fallbackSrc} />
   );
 
   expect(container.firstChild.getAttribute('alt')).toBe(
@@ -189,7 +189,7 @@ test('Throws error when none of the following props: image or fallbackSrc, are p
 
 test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () => {
   const props = {
-    fallbackAlt: 'Some nice lawn chairs',
+    alt: 'Some nice lawn chairs',
     fallbackSrcSet:
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
   };
@@ -198,13 +198,13 @@ test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () =
     render(
       <Image
         fallbackSrcSet={props.fallbackSrcSet}
-        fallbackAlt={props.fallbackAlt}
+        alt={props.alt}
       />
     );
   }).toThrow();
 });
 
-test('Throws error when neither a proper image object or fallbackAlt is provided', () => {
+test('Throws error when neither a proper image object or alt is provided', () => {
   const props = {
     fallbackSrc:
       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
