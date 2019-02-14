@@ -11,7 +11,8 @@ const App = () => (
       aspectRatio="square"
       alt="this image is from our test data"
       elementClass="exampleImage"
-      sizes="(min-width: 1000px) 1000px" />
+      sizes="(min-width: 1000px) 1000px"
+    />
   </div>
 );
 

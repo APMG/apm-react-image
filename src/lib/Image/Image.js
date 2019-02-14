@@ -138,7 +138,12 @@ Image.propTypes = {
     srcset: PropTypes.string
   }),
   aspectRatio: PropTypes.oneOf([
-    'normal', 'square', 'thumbnail', 'widescreen', 'portrait', 'uncropped'
+    'normal',
+    'square',
+    'thumbnail',
+    'widescreen',
+    'portrait',
+    'uncropped'
   ]),
   elementClass: PropTypes.string,
   fallbackSrcSet: PropTypes.string,
