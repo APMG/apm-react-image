@@ -1,11 +1,17 @@
 {
   "name": "apm-react-image",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
     "dist",
     "README.md"
+  ],
+  "keywords": [
+    "image",
+    "react",
+    "apm",
+    "media"
   ],
   "repository": {
     "type": "git",
@@ -15,7 +21,12 @@
     "start": "react-scripts start",
     "build": "rm -rf dist && NODE_ENV=production babel src/lib --out-dir dist --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "jest": "jest",
+    "eject": "react-scripts eject",
+    "eslint": "eslint ./src/**/**.js",
+    "eslint:fix": "eslint ./src/**/**.js --fix",
+    "prettier": "prettier --check './src/**/**.js'",
+    "prettier:fix": "prettier --check './src/**/**.js' --write"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,7 +39,14 @@
   ],
   "devDependencies": {
     "@babel/cli": "^7.2.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "eslint": "^5.13.0",
+    "eslint-config-prettier": "^4.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.12.4",
     "jest-prop-type-error": "^1.1.0",
+    "prettier": "1.16.4",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-scripts": "2.1.5",

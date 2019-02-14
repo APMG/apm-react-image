@@ -195,12 +195,7 @@ test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () =
   };
 
   expect(() => {
-    render(
-      <Image
-        fallbackSrcSet={props.fallbackSrcSet}
-        alt={props.alt}
-      />
-    );
+    render(<Image fallbackSrcSet={props.fallbackSrcSet} alt={props.alt} />);
   }).toThrow();
 });
 
