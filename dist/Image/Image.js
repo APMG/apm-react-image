@@ -1,4 +1,13 @@
-import React from 'react';
+"use strict";
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
 
 // Ideally, this component will take in an image object formatted by our images API and spit out an image with a proper srcset. However, I also thought I should provide a couple of fallback options, in case you want to use an image from somewhere else entirely: fallbackSrcSet and fallbackSrc. The last one will just create a normal img tag, so I really don't recommend it.
 function generateSrcSet(imageProps, props) {
@@ -48,7 +57,7 @@ function generateAttrs(props) {
 
 var Image = function Image(props) {
   var imageProps = generateAttrs(props);
-  return React.createElement("img", {
+  return _react.default.createElement("img", {
     className: props.elementClass,
     src: imageProps.src,
     alt: imageProps.alt,
@@ -60,4 +69,5 @@ var Image = function Image(props) {
 Image.defaultProps = {
   elementClass: ''
 };
-export default Image;
+var _default = Image;
+exports.default = _default;

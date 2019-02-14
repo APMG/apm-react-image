@@ -1,11 +1,17 @@
 {
   "name": "apm-react-image",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "files": [
     "dist",
     "README.md"
+  ],
+  "keywords": [
+    "image",
+    "react",
+    "apm",
+    "media"
   ],
   "repository": {
     "type": "git",
@@ -28,6 +34,8 @@
   ],
   "devDependencies": {
     "@babel/cli": "^7.2.3",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
     "jest-prop-type-error": "^1.1.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
