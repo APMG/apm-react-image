@@ -1,14 +1,14 @@
-# apm-image-react
+# apm-mimas
 
 Takes an endpoint from APM's Images API and turns it into an &lt;img /> object with srcset.
 
 ## Installation
 
-Simply run the command `npm i apm-image-react` or `yarn add apm-image-react`.
+Simply run the command `npm i apm-mimas` or `yarn add apm-mimas`.
 
 ## Usage
 
-In files were you want to use the Image component, put `import { Image } from 'apm-image-react'` at the top of your file.
+In files were you want to use the Image component, put `import { Image } from 'apm-mimas'` at the top of your file.
 
 ## Available Properties
 
