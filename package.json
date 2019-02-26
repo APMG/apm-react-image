@@ -1,9 +1,10 @@
 {
   "name": "apm-mimas",
   "description": "A React component that takes an image endpoint from APM's APIs and returns a proper image with srcset.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "module": "dist/index.js",
+  "license": "MIT",
   "files": [
     "dist",
     "README.md"
@@ -27,7 +28,8 @@
     "eslint": "eslint ./src/**/**.js",
     "eslint:fix": "eslint ./src/**/**.js --fix",
     "prettier": "prettier --check './src/**/**.js'",
-    "prettier:fix": "prettier --check './src/**/**.js' --write"
+    "prettier:fix": "prettier --check './src/**/**.js' --write",
+    "hook:setup": "sh setup-hooks.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
