@@ -24,7 +24,7 @@ function generateAttrs(props) {
   };
 
   if (props.image) {
-    imageProps.src = props.image.url;
+    imageProps.src = props.image.fallback;
     if (props.alt) {
       imageProps.alt = props.alt;
     } else {
