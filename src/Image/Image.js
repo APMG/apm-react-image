@@ -163,7 +163,7 @@ Image.propTypes = {
     }
   },
   mustProvideAlt: function(props) {
-    if (!props['image'] && !props['alt']) {
+    if (!props['image'] && !props['alt'] && props['alt'] !== '') {
       return new Error(
         'Please provide either a properly formatted image JSON object or an image alt'
       );
