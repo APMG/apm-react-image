@@ -1,7 +1,7 @@
 {
   "name": "apm-mimas",
   "description": "A React component that takes an image endpoint from APM's APIs and returns a proper image with srcset.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "license": "MIT",
