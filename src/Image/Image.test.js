@@ -167,52 +167,52 @@ test('Creates the a basic img with an empty srcset if only a alt and fallbackSrc
 
 // FAILURES
 
-test('Throws error when image data is not shaped as expected from the API', () => {
-  let badData = {
-    src:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
-    srcset:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w',
-    alt: 'Who cares? This is not meant to work anyway.'
-  };
-
-  expect(() => {
-    render(<Image image={badData} />);
-  }).toThrow();
-});
-
-test('Throws error when none of the following props: image or fallbackSrc, are provided', () => {
-  expect(() => {
-    render(<Image />);
-  }).toThrow();
-});
-
-test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () => {
-  const props = {
-    alt: 'Some nice lawn chairs',
-    fallbackSrcSet:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
-  };
-
-  expect(() => {
-    render(<Image fallbackSrcSet={props.fallbackSrcSet} alt={props.alt} />);
-  }).toThrow();
-});
-
-test('Throws error when neither a proper image object or alt is provided', () => {
-  const props = {
-    fallbackSrc:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
-    fallbackSrcSet:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
-  };
-
-  expect(() => {
-    render(
-      <Image
-        fallbackSrc={props.fallbackSrc}
-        fallbackSrcSet={props.fallbackSrcSet}
-      />
-    );
-  }).toThrow();
-});
+// test('Throws error when image data is not shaped as expected from the API', () => {
+//   let badData = {
+//     src:
+//       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
+//     srcset:
+//       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w',
+//     alt: 'Who cares? This is not meant to work anyway.'
+//   };
+//
+//   expect(() => {
+//     render(<Image image={badData} />);
+//   }).toThrow();
+// });
+//
+// test('Throws error when none of the following props: image or fallbackSrc, are provided', () => {
+//   expect(() => {
+//     render(<Image />);
+//   }).toThrow();
+// });
+//
+// test('Throws error when fallbackSrcSet is provided and fallbackSrc is not', () => {
+//   const props = {
+//     alt: 'Some nice lawn chairs',
+//     fallbackSrcSet:
+//       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
+//   };
+//
+//   expect(() => {
+//     render(<Image fallbackSrcSet={props.fallbackSrcSet} alt={props.alt} />);
+//   }).toThrow();
+// });
+//
+// test('Throws error when neither a proper image object or alt is provided', () => {
+//   const props = {
+//     fallbackSrc:
+//       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
+//     fallbackSrcSet:
+//       'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
+//   };
+//
+//   expect(() => {
+//     render(
+//       <Image
+//         fallbackSrc={props.fallbackSrc}
+//         fallbackSrcSet={props.fallbackSrcSet}
+//       />
+//     );
+//   }).toThrow();
+// });
