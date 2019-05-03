@@ -4,21 +4,28 @@ import PropTypes from 'prop-types';
 // Ideally, this component will take in an image object formatted by our images API and spit out an image with a proper srcset. However, I also thought I should provide a couple of fallback options, in case you want to use an image from somewhere else entirely: fallbackSrcSet and fallbackSrc. The last one will just create a normal img tag, so I really don't recommend it.
 
 function generateSrcSet(imageProps, props) {
-  if (props.image.aspect_ratios[props.aspectRatio] === null) {
-    imageProps.srcset = '';
+  let aspectRatio = 'uncropped';
+
+  if (props.image.aspect_ratios) {
+    if (props.aspectRatio in props.image.aspect_ratios) {
+      aspectRatio = props.aspectRatio;
+    }
+
+    props.image.aspect_ratios[aspectRatio].instances.forEach(
+      (image, i, dataSet) => {
+        let set = `${image.url} ${image.width}w`;
+        if (i !== dataSet.length - 1) {
+          set = set.concat(',');
+        }
+
+        imageProps.srcSet = imageProps.srcSet.concat(set);
+        return;
+      }
+    );
+  } else {
+    imageProps.srcSet = props.image.srcset;
     return;
   }
-
-  props.image.aspect_ratios[props.aspectRatio].instances.forEach(
-    (image, i, dataSet) => {
-      let set = `${image.url} ${image.width}w`;
-      if (i !== dataSet.length - 1) {
-        set = set.concat(',');
-      }
-
-      imageProps.srcSet = imageProps.srcSet.concat(set);
-    }
-  );
 }
 
 function generateAttrs(props) {
@@ -129,7 +136,7 @@ Image.propTypes = {
         ),
         slug: PropTypes.string
       })
-    }).isRequired,
+    }),
     long_caption: PropTypes.string,
     short_caption: PropTypes.string,
     width: PropTypes.string,
