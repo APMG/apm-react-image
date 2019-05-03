@@ -5,23 +5,27 @@ import PropTypes from 'prop-types';
 
 function generateSrcSet(imageProps, props) {
   let aspectRatio = 'uncropped';
-  if (props.image.aspect_ratios[props.aspectRatio] !== null) {
-    aspectRatio = props.aspectRatio;
+
+  if (props.image.aspect_ratios) {
+    if (props.aspectRatio in props.image.aspect_ratios) {
+      aspectRatio = props.aspectRatio;
+    }
+
+    props.image.aspect_ratios[aspectRatio].instances.forEach(
+      (image, i, dataSet) => {
+        let set = `${image.url} ${image.width}w`;
+        if (i !== dataSet.length - 1) {
+          set = set.concat(',');
+        }
+
+        imageProps.srcSet = imageProps.srcSet.concat(set);
+        return;
+      }
+    );
   } else {
-    imageProps.srcset = '';
+    imageProps.srcSet = props.image.srcset;
     return;
   }
-
-  props.image.aspect_ratios[aspectRatio].instances.forEach(
-    (image, i, dataSet) => {
-      let set = `${image.url} ${image.width}w`;
-      if (i !== dataSet.length - 1) {
-        set = set.concat(',');
-      }
-
-      imageProps.srcSet = imageProps.srcSet.concat(set);
-    }
-  );
 }
 
 function generateAttrs(props) {
@@ -132,7 +136,7 @@ Image.propTypes = {
         ),
         slug: PropTypes.string
       })
-    }).isRequired,
+    }),
     long_caption: PropTypes.string,
     short_caption: PropTypes.string,
     width: PropTypes.string,
