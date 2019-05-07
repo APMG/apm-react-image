@@ -7,20 +7,24 @@ function generateSrcSet(imageProps, props) {
   let aspectRatio = 'uncropped';
 
   if (props.image.aspect_ratios) {
-    if (props.aspectRatio in props.image.aspect_ratios) {
+    if (
+      props.aspectRatio in props.image.aspect_ratios &&
+      props.image.aspect_ratios[props.aspectRatio] !== null
+    ) {
       aspectRatio = props.aspectRatio;
-      props.image.aspect_ratios[aspectRatio].instances.forEach(
-        (image, i, dataSet) => {
-          let set = `${image.url} ${image.width}w`;
-          if (i !== dataSet.length - 1) {
-            set = set.concat(',');
-          }
-
-          imageProps.srcSet = imageProps.srcSet.concat(set);
-          return;
-        }
-      );
     }
+
+    props.image.aspect_ratios[aspectRatio].instances.forEach(
+      (image, i, dataSet) => {
+        let set = `${image.url} ${image.width}w`;
+        if (i !== dataSet.length - 1) {
+          set = set.concat(',');
+        }
+
+        imageProps.srcSet = imageProps.srcSet.concat(set);
+        return;
+      }
+    );
   } else {
     imageProps.srcSet = props.image.srcset;
     return;
