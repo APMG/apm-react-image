@@ -1,0 +1,62 @@
+//--------------------------------
+// Main Nav
+//--------------------------------
+
+.nav {
+  font-size: 2rem;
+  font-weight: bold;
+
+  @include media($media-full-layout) {
+    font-size: 1.6rem;
+  }
+
+  @include media($media-desktop) {
+    font-size: 2rem;
+
+    .is-compact & {
+      font-size: 1.6rem;
+    }
+  }
+}
+
+.nav_list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  @include media-max($media-full-layout) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.nav_item {
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.nav_link {
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: $color-header;
+  transition: color $transition;
+
+  &.is-active {
+    color: $color-link-hover;
+  }
+
+  &:hover,
+  &:focus {
+    color: $color-theme;
+  }
+
+  @include media($media-full-layout) {
+    padding: 20px 12px;
+  }
+
+  @include media($media-t-d) {
+    padding: 20px;
+  }
+}

@@ -1,0 +1,129 @@
+//--------------------------------
+// Main Site Header
+//--------------------------------
+
+.header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  box-shadow: 0 0 20px rgba($color-black, .2);
+  height: $header-height-mobile;
+  position: fixed;
+  z-index: $z-header;
+  font-family: $font-family-sans;
+  color: $color-header;
+  background-color: $color-header-bg;
+
+  @include media($media-full-layout) {
+    height: $header-height-desktop;
+  }
+}
+
+.header_logo {
+  display: flex;
+  align-items: center;
+
+  @include media-max($media-full-layout) {
+    order: 2;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.header_logoImg {
+  height: 36px;
+  width: 36px;
+  margin-right: 8px;
+
+  @include media($media-full-layout) {
+    height: 64px;
+    width: 64px;
+    margin-right: 16px;
+  }
+
+  svg {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.header_logoText {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+
+  @include media($media-full-layout) {
+    font-size: 18px;
+  }
+}
+
+.header_logoText_lg {
+  display: block;
+  font-size: 1.6em;
+  text-transform: none;
+}
+
+.header_nav {
+  display: block;
+
+  @include media-max($media-full-layout) {
+    width: 240px;
+    padding-top: 20px;
+    position: fixed;
+    overflow-y: auto;
+    top: $header-height-mobile;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $z-mobile-nav;
+    background-color: $color-header-bg;
+    transform: translateX(-100%);
+    transition: transform $transition-menu;
+
+    .is-open & {
+      transform: translateX(0);
+    }
+  }
+}
+
+.header_navButton {
+  @include reset-button();
+  display: none;
+  padding: 10px;
+
+  @include media-max($media-full-layout) {
+    display: block;
+    order: 1;
+  }
+
+  svg {
+    display: block;
+    height: 30px;
+    width: 30px;
+  }
+}
+
+.header_navBg {
+  display: none;
+
+  @include media-max($media-full-layout) {
+    display: block;
+    position: fixed;
+    opacity: 0;
+    transition: opacity $transition-menu;
+
+    .is-open & {
+      top: $header-height-mobile;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: $z-mobile-nav-bg;
+      opacity: 1;
+      background: $color-screen;
+    }
+  }
+}
