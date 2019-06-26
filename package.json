@@ -1,7 +1,7 @@
 {
-  "name": "apm-mimas",
+  "name": "@apmg/mimas",
   "description": "A React component that takes an image endpoint from APM's APIs and returns a proper image with srcset.",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "license": "MIT",
@@ -20,14 +20,17 @@
     "url": "https://github.com/APMG/apm-mimas"
   },
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack --mode development",
-    "test": "jest --watch src/",
-    "test:ci": "jest src/",
-    "storybook": "start-storybook -p 9001 -c .storybook",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest --watch",
+    "test:ci": "jest",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
     "eslint": "eslint .",
+    "sasslint": "sass-lint -c .sass-lint.yml -v -q",
     "prettier": "prettier --check '**/**.js'",
-    "prettier:fix": "prettier --check '**/**.js' --write"
+    "prettier:fix": "prettier --check '**/**.js' --write",
+    "clean": "rm -rf node_modules dist package-lock.json && npm cache verify"
   },
   "husky": {
     "hooks": {
@@ -44,10 +47,22 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "peerDependencies": {
+    "classnames": "^2.2.6",
+    "react": "^16.8.6",
+    "next": "^8.1.0",
+    "prop-types": "^15.7.2"
+  },
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-info": "^5.1.9",
+    "@storybook/addon-knobs": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addon-options": "^5.1.9",
+    "@storybook/react": "^5.1.9",
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "classnames": "^2.2.6",
@@ -56,16 +71,20 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
+    "husky": "^1.3.1",
     "jest": "^24.7.1",
     "jest-prop-type-error": "^1.1.0",
+    "node-sass": "^4.12.0",
     "prettier": "1.16.4",
     "react": "^16.8.1",
-    "react-dom": "^16.8.1",
+    "react-router": "^5.0.1",
     "react-testing-library": "^5.8.0",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.2.3"
+    "rollup": "^1.0.0",
+    "rollup-plugin-babel": "^4.3.3",
+    "sass-lint": "^1.13.1",
+    "sass-loader": "^7.1.0",
+    "storybook-react-router": "^1.0.5",
+    "storybook-readme": "^5.0.5"
   },
-  "dependencies": {
-    "husky": "^1.3.1"
-  }
+  "dependencies": {}
 }
