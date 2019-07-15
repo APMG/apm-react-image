@@ -1,20 +1,24 @@
 import React from 'react';
 import { render, cleanup } from 'react-testing-library';
 import Image from './Image';
-import { image } from './testdata/image';
+import {
+  image,
+  imageWithPreferred,
+  imageWithoutPreferredSlug
+} from './testdata/image';
 import 'jest-prop-type-error';
 
 afterEach(cleanup);
 
 // SUCCESSES
 
-test('Creates an img with the correct alt, src, and srcSet when aspectRatio prop is provided', () => {
+test('Creates an img with the correct alt, src, and srcSet when aspectRatio prop is provided, prioritizes aspectRatio prop over preferred', () => {
   const props = {
     aspectRatio: 'widescreen'
   };
 
   const { container } = render(
-    <Image image={image} aspectRatio={props.aspectRatio} />
+    <Image image={imageWithPreferred} aspectRatio={props.aspectRatio} />
   );
 
   expect(container.firstChild.getAttribute('alt')).toBe(
@@ -52,6 +56,20 @@ test('Takes in an optional sizes string, specifying specific image behavior with
   );
 });
 
+test('Creates an img with the preferred aspect ratio when image.preferredAspectRatio is included and no aspectRatio prop is provided', () => {
+  const { container } = render(<Image image={imageWithPreferred} />);
+
+  expect(container.firstChild.getAttribute('alt')).toBe(
+    'Serena Brook opens our show at The Town Hall'
+  );
+  expect(container.firstChild.getAttribute('src')).toBe(
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
+  );
+  expect(container.firstChild.getAttribute('srcset')).toBe(
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/5ecd52-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/de193e-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/7cb7e2-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/822d4e-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/f977a8-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w'
+  );
+});
+
 test('Creates an img with the correct alt, src, and srcSet and className when the elementClass property is provided', () => {
   const props = {
     aspectRatio: 'widescreen',
@@ -78,8 +96,8 @@ test('Creates an img with the correct alt, src, and srcSet and className when th
   );
 });
 
-test('Creates an img with the correct alt, src, and defaut srcSet when no aspectRatio prop is provided', () => {
-  const { container } = render(<Image image={image} />);
+test('Creates an img with the correct alt, src, and "uncropped" srcSet when no aspectRatio prop or image.preferred_aspect_ratio_slug is provided', () => {
+  const { container } = render(<Image image={imageWithoutPreferredSlug} />);
 
   expect(container.firstChild.getAttribute('alt')).toBe(
     'Serena Brook opens our show at The Town Hall'
@@ -87,7 +105,9 @@ test('Creates an img with the correct alt, src, and defaut srcSet when no aspect
   expect(container.firstChild.getAttribute('src')).toBe(
     'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
   );
-  expect(container.firstChild.getAttribute('srcset')).toBe(image.srcset);
+  expect(container.firstChild.getAttribute('srcset')).toBe(
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/35bd3b-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/04a63f-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/72bc48-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f20034-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w'
+  );
 });
 
 test('Creates an img when an image object is not provided, but a fallbackSrc, fallbackSrcSet and alt are provided', () => {
@@ -142,7 +162,9 @@ test('Creates the correct img when an image prop and all of the fallbacks are pr
   expect(container.firstChild.getAttribute('src')).toBe(
     'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
   );
-  expect(container.firstChild.getAttribute('srcset')).toBe(image.srcset);
+  expect(container.firstChild.getAttribute('srcset')).toBe(
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/e428bc-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/58b2ba-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/95c885-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/b3a373-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/6ceb83-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w'
+  );
 });
 
 test('Creates the a basic img with an empty srcset if only a alt and fallbackSrc are provided', () => {
@@ -162,7 +184,7 @@ test('Creates the a basic img with an empty srcset if only a alt and fallbackSrc
   expect(container.firstChild.getAttribute('src')).toBe(
     'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg'
   );
-  expect(container.firstChild.getAttribute('srcset')).toBe('');
+  expect(container.firstChild.getAttribute('srcset')).toBe(null);
 });
 
 // FAILURES
