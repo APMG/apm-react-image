@@ -3,152 +3,106 @@ import PropTypes from 'prop-types';
 
 // Ideally, this component will take in an image object formatted by our images API and spit out an image with a proper srcset. However, I also thought I should provide a couple of fallback options, in case you want to use an image from somewhere else entirely: fallbackSrcSet and fallbackSrc. The last one will just create a normal img tag, so I really don't recommend it.
 
-function generateSrcSet(imageProps, props) {
-  let aspectRatio = 'uncropped';
-
-  if (props.image.aspect_ratios) {
-    if (
-      props.aspectRatio in props.image.aspect_ratios &&
-      props.image.aspect_ratios[props.aspectRatio] !== null
-    ) {
-      aspectRatio = props.aspectRatio;
+const Image = (props) => {
+  const determineAspectRatio = () => {
+    if (props.aspectRatio) {
+      return props.aspectRatio;
+    } else if (props.image.preferredAspectRatio) {
+      // forces getSrcSet() to use props.image.preferredAspectRatio if it exists, i.e. the function moves on to the next condition,
+      // this means that the aspectRatio prop acts as an override if there is a preferred value in the data
+      return false;
+    } else if (props.image && props.image.preferred_aspect_ratio_slug) {
+      return props.image.preferred_aspect_ratio_slug;
+    } else {
+      return 'uncropped';
     }
-
-    props.image.aspect_ratios[aspectRatio].instances.forEach(
-      (image, i, dataSet) => {
-        let set = `${image.url} ${image.width}w`;
-        if (i !== dataSet.length - 1) {
-          set = set.concat(',');
-        }
-
-        imageProps.srcSet = imageProps.srcSet.concat(set);
-        return;
-      }
-    );
-  } else {
-    imageProps.srcSet = props.image.srcset;
-    return;
-  }
-}
-
-function generateAttrs(props) {
-  let imageProps = {
-    srcSet: '',
-    src: '',
-    alt: ''
   };
 
-  if (props.image) {
-    imageProps.src = props.image.fallback;
+  const getSrcSet = () => {
+    if (props.image) {
+      if (
+        props.image.aspect_ratios &&
+        determineAspectRatio() in props.image.aspect_ratios &&
+        props.image.aspect_ratios[props.aspectRatio] !== null
+      ) {
+        return generateSrcSet(
+          props.image.aspect_ratios[determineAspectRatio()].instances
+        );
+      } else if (props.image.preferredAspectRatio) {
+        return generateSrcSet(props.image.preferredAspectRatio.instances);
+      } else {
+        return props.image.srcset;
+      }
+    } else if (props.fallbackSrcSet) {
+      return props.fallbackSrcSet;
+    } else {
+      return null;
+    }
+  };
+
+  const getSrc = () => {
+    if (props.image && props.image.fallback) {
+      return props.image.fallback;
+    } else {
+      return props.fallbackSrc;
+    }
+  };
+
+  const generateSrcSet = (instances) => {
+    return instances
+      .map((instance) => `${instance.url} ${instance.width}w`)
+      .join(',');
+  };
+
+  const getAlt = () => {
     if (props.alt) {
-      imageProps.alt = props.alt;
+      return props.alt;
+    } else if (props.image && props.image.short_caption) {
+      return props.image.short_caption;
     } else {
-      imageProps.alt = props.image.short_caption;
+      return '';
     }
-    if (props.aspectRatio) {
-      generateSrcSet(imageProps, props);
-    } else {
-      imageProps.srcSet = props.image.srcset;
-    }
-  } else if (props.fallbackSrcSet) {
-    imageProps.srcSet = props.fallbackSrcSet;
-    imageProps.src = props.fallbackSrc;
-    imageProps.alt = props.alt;
-  } else {
-    imageProps.src = props.fallbackSrc;
-    imageProps.alt = props.alt;
-  }
-
-  return imageProps;
-}
-
-const Image = (props) => {
-  const imageProps = generateAttrs(props);
+  };
 
   return (
     <img
       className={props.elementClass}
-      src={imageProps.src}
-      alt={imageProps.alt}
-      srcSet={imageProps.srcSet}
+      src={getSrc()}
+      alt={getAlt()}
+      srcSet={getSrcSet()}
       sizes={props.sizes}
     />
   );
 };
 
+const aspectRatioType = PropTypes.shape({
+  instances: PropTypes.arrayOf(
+    PropTypes.shape({
+      url: PropTypes.string,
+      width: PropTypes.number,
+      height: PropTypes.number
+    })
+  ),
+  slug: PropTypes.string
+});
+
 Image.propTypes = {
   image: PropTypes.shape({
+    preferredAspectRatio: aspectRatioType,
     aspect_ratios: PropTypes.shape({
-      normal: PropTypes.shape({
-        instances: PropTypes.arrayOf(
-          PropTypes.shape({
-            width: PropTypes.number,
-            url: PropTypes.string,
-            height: PropTypes.number
-          })
-        ),
-        slug: PropTypes.string
-      }),
-      square: PropTypes.shape({
-        instances: PropTypes.arrayOf(
-          PropTypes.shape({
-            width: PropTypes.number,
-            url: PropTypes.string,
-            height: PropTypes.number
-          })
-        ),
-        slug: PropTypes.string
-      }),
-      thumbnail: PropTypes.shape({
-        instances: PropTypes.arrayOf(
-          PropTypes.shape({
-            width: PropTypes.number,
-            url: PropTypes.string,
-            height: PropTypes.number
-          })
-        ),
-        slug: PropTypes.string
-      }),
-      widescreen: PropTypes.shape({
-        instances: PropTypes.arrayOf(
-          PropTypes.shape({
-            width: PropTypes.number,
-            url: PropTypes.string,
-            height: PropTypes.number
-          })
-        ),
-        slug: PropTypes.string
-      }),
-      portrait: PropTypes.shape({
-        instances: PropTypes.arrayOf(
-          PropTypes.shape({
-            width: PropTypes.number,
-            url: PropTypes.string,
-            height: PropTypes.number
-          })
-        ),
-        slug: PropTypes.string
-      }),
-      uncropped: PropTypes.shape({
-        instances: PropTypes.arrayOf(
-          PropTypes.shape({
-            width: PropTypes.number,
-            url: PropTypes.string,
-            height: PropTypes.number
-          })
-        ),
-        slug: PropTypes.string
-      })
+      normal: aspectRatioType,
+      square: aspectRatioType,
+      thumbnail: aspectRatioType,
+      widescreen: aspectRatioType,
+      portrait: aspectRatioType,
+      uncropped: aspectRatioType
     }),
+    fallback: PropTypes.string,
     long_caption: PropTypes.string,
     short_caption: PropTypes.string,
     width: PropTypes.string,
     preferred_aspect_ratio_slug: PropTypes.string,
     id: PropTypes.string,
-    credit_url: PropTypes.string,
-    type: PropTypes.string,
-    float: PropTypes.string,
-    credit: PropTypes.string,
     url: PropTypes.string,
     srcset: PropTypes.string
   }),
