@@ -10,7 +10,7 @@ const AmpImage = (props) => {
   if (height && width) {
     return (
       <amp-img
-        className={props.elementClass}
+        class={props.elementClass}
         src={src}
         alt={getAlt(props)}
         srcSet={getSrcSet(props)}
@@ -24,7 +24,7 @@ const AmpImage = (props) => {
 
   return (
     <amp-img
-      className={props.elementClass}
+      class={props.elementClass}
       src={src}
       alt={getAlt(props)}
       srcSet={getSrcSet(props)}

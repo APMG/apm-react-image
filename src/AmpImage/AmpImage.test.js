@@ -95,7 +95,7 @@ test('Creates an img with the correct alt, src, and srcSet and className when th
     />
   );
 
-  expect(container.firstChild.getAttribute('className')).toBe('testImage');
+  expect(container.firstChild.getAttribute('class')).toBe('testImage');
   expect(container.firstChild.getAttribute('alt')).toBe(
     'Serena Brook opens our show at The Town Hall'
   );
