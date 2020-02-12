@@ -1,17 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getAlt, getSrc, getSrcSet } from '../utils/utils';
+import { getAlt, getSrc, getSrcSet, getInstances } from '../utils/utils';
 
-// Ideally, this component will take in an image object formatted by our images API and spit out an image with a proper srcset. However, I also thought I should provide a couple of fallback options, in case you want to use an image from somewhere else entirely: fallbackSrcSet and fallbackSrc. The last one will just create a normal img tag, so I really don't recommend it.
+const AmpImage = (props) => {
+  const src = getSrc(props);
+  const instances = getInstances(props);
+  const { height, width } = instances[0] || { height: false, width: false };
 
-const Image = (props) => {
+  if (height && width) {
+    return (
+      <amp-img
+        className={props.elementClass}
+        src={src}
+        alt={getAlt(props)}
+        srcSet={getSrcSet(props)}
+        sizes={props.sizes}
+        height={height}
+        width={width}
+        layout="responsive"
+      />
+    );
+  }
+
   return (
-    <img
+    <amp-img
       className={props.elementClass}
-      src={getSrc(props)}
+      src={src}
       alt={getAlt(props)}
       srcSet={getSrcSet(props)}
       sizes={props.sizes}
+      layout="responsive"
     />
   );
 };
@@ -27,7 +45,7 @@ const aspectRatioType = PropTypes.shape({
   slug: PropTypes.string
 });
 
-Image.propTypes = {
+AmpImage.propTypes = {
   image: PropTypes.shape({
     preferredAspectRatio: aspectRatioType,
     aspect_ratios: PropTypes.shape({
@@ -83,8 +101,8 @@ Image.propTypes = {
   }
 };
 
-Image.defaultProps = {
+AmpImage.defaultProps = {
   elementClass: ''
 };
 
-export default Image;
+export default AmpImage;
