@@ -1,2 +1,3 @@
 import Image from './Image/Image';
-export { Image };
+import AmpImage from './AmpImage/AmpImage';
+export { Image, AmpImage };
