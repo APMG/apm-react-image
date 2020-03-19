@@ -1,7 +1,7 @@
 {
   "name": "@apmg/mimas",
   "description": "A React component that takes an image endpoint from APM's APIs and returns a proper image with srcset.",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "license": "MIT",
@@ -30,7 +30,7 @@
     "sasslint": "sass-lint -c .sass-lint.yml -v -q",
     "prettier": "prettier --check '**/**.js'",
     "prettier:fix": "prettier --check '**/**.js' --write",
-    "clean": "rm -rf node_modules dist package-lock.json && npm cache verify"
+    "clean": "rm -rf node_modules dist package-lock.json yarn.lock"
   },
   "husky": {
     "hooks": {
