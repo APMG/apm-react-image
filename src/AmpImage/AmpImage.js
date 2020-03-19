@@ -2,6 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { getAlt, getSrc, getSrcSet, getInstances } from '../utils/utils';
 
+const ampStyles = {
+  image: {
+    maxWidth: '100%'
+  }
+};
+
 const AmpImage = (props) => {
   const src = getSrc(props);
   const instances = getInstances(props);
@@ -10,6 +16,7 @@ const AmpImage = (props) => {
   if (height && width) {
     return (
       <amp-img
+        style={ampStyles.image}
         class={props.elementClass}
         src={src}
         alt={getAlt(props)}
@@ -24,6 +31,7 @@ const AmpImage = (props) => {
 
   return (
     <amp-img
+      style={ampStyles.image}
       class={props.elementClass}
       src={src}
       alt={getAlt(props)}
