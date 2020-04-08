@@ -1,17 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { getAlt, getSrc, getSrcSet, getInstances } from '../utils/utils';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { getAlt, getSrc, getSrcSet, getInstances } from '../utils/utils'
 
 const ampStyles = {
   image: {
     maxWidth: '100%'
   }
-};
+}
 
 const AmpImage = (props) => {
-  const src = getSrc(props);
-  const instances = getInstances(props);
-  const { height, width } = instances[0] || { height: false, width: false };
+  const src = getSrc(props)
+  const instances = getInstances(props)
+  const { height, width } = instances[0] || { height: false, width: false }
 
   if (height && width) {
     return (
@@ -26,7 +26,7 @@ const AmpImage = (props) => {
         width={width}
         layout="responsive"
       />
-    );
+    )
   }
 
   return (
@@ -39,8 +39,8 @@ const AmpImage = (props) => {
       sizes={props.sizes}
       layout="responsive"
     />
-  );
-};
+  )
+}
 
 const aspectRatioType = PropTypes.shape({
   instances: PropTypes.arrayOf(
@@ -51,7 +51,7 @@ const aspectRatioType = PropTypes.shape({
     })
   ),
   slug: PropTypes.string
-});
+})
 
 AmpImage.propTypes = {
   image: PropTypes.shape({
@@ -90,27 +90,27 @@ AmpImage.propTypes = {
     if (!props['image'] && !props['fallbackSrc']) {
       return new Error(
         'Please provide either a properly formatted image JSON object or an image src'
-      );
+      )
     }
   },
   mustProvideAlt: function(props) {
     if (!props['image'] && !props['alt'] && props['alt'] !== '') {
       return new Error(
         'Please provide either a properly formatted image JSON object or an image alt'
-      );
+      )
     }
   },
   mustProvideSrcWithSrcset: function(props) {
     if (!props['image'] && !props['fallbackSrc'] && props['fallbackSrcSet']) {
       return new Error(
         'You cannot provide a fallbackSrcSet without providing a fallbackSrc'
-      );
+      )
     }
   }
-};
+}
 
 AmpImage.defaultProps = {
   elementClass: ''
-};
+}
 
-export default AmpImage;
+export default AmpImage

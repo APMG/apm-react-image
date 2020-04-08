@@ -1,8 +1,17 @@
+---
+name: AmpImage 
+route: /amp-image
+---
+
 # AmpImage
 
-A component for displaying an image for AMP html, primarily from APM's image API.
+A component for displaying an image for AMP html, primarily from APM's image API. It pretty much works the same as the regular [`<Image />`]('/image') component, but it will hard set the width and height of the image to 400 and 225 if it can't find that info any other way, since AMP requires those properties.
 
-## Properties
+We include one inline style with the AMP Image because it's hard to think of a single scenario where we wouldn't want the `maxWidth` of the image to be `100%`, and it's a bit baffling that the visual breaks by default.
+
+TODO: explain more of this logic, where it differs from Image, where necessary.
+
+## Props
 
 ### image
 

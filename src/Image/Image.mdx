@@ -1,9 +1,15 @@
+---
+name: Image 
+route: /image
+---
 
 # Image
 
-A component for displaying an image, primarily from APM's image API.
+A component that takes an endpoint from American Public Media's internal image API and turns it into a valid `<img />` or `<amp-img />` object with a `srcset` and proper sizing. It can also be given a `srcset` and/or `src` manually via the fallback props.
 
-## Properties
+TODO: Explain a bit of the logic of the component, how it decides which aspect ratio it should use depending on the root data and what the CMS user specified at time of creation.
+
+## Props
 
 ### image
 
