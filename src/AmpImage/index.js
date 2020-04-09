@@ -64,7 +64,7 @@ AmpImage.propTypes = {
       portrait: aspectRatioType,
       uncropped: aspectRatioType
     }),
-    fallback: PropTypes.string,
+    fallback: PropTypes.string.isRequired,
     long_caption: PropTypes.string,
     short_caption: PropTypes.string,
     width: PropTypes.string,

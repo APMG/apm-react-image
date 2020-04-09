@@ -1,4 +1,4 @@
-import Image from './Image/Image'
-import AmpImage from './AmpImage/AmpImage'
+import Image from './Image'
+import AmpImage from './AmpImage'
 
 export { Image, AmpImage }

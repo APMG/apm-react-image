@@ -3,15 +3,34 @@ import { render } from '@testing-library/react'
 import Image from '..'
 import { image, imageWithPreferred } from '../../__data__/image'
 
+function objectMother() {
+  const srcSet =
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/35bd3b-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/04a63f-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/72bc48-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f20034-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000'
+  const src =
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
+  const sizes = '(min-width: 960px) 720px, 100vw'
+  const className = 'test'
+  const alt = 'Some nice lawn chairs'
+  const fallbackSrc =
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg'
+  const fallbackSrcSet =
+    'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
+
+  return {
+    src,
+    srcSet,
+    sizes,
+    class: className,
+    alt,
+    fallbackSrc,
+    fallbackSrcSet
+  }
+}
+
 // SUCCESSES
 
 test('creates the correct image when properly formatted image data is provided', () => {
-  const expected = {
-    srcSet:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/35bd3b-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/04a63f-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/72bc48-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f20034-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000',
-    src:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
-  }
+  const expected = objectMother()
 
   const { getByAltText } = render(<Image image={image} />)
 
@@ -26,12 +45,10 @@ test('creates the correct image when properly formatted image data is provided',
 })
 
 test('creates the correct image when data specifies which aspect ratio to use', () => {
-  const expected = {
-    srcSet:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/e428bc-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/58b2ba-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/95c885-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/b3a373-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/6ceb83-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w',
-    src:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
-  }
+  const expected = objectMother()
+
+  expected.srcSet =
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/e428bc-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/58b2ba-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/95c885-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/b3a373-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/6ceb83-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w'
 
   const { getByAltText } = render(<Image image={imageWithPreferred} />)
 
@@ -46,15 +63,12 @@ test('creates the correct image when data specifies which aspect ratio to use', 
 })
 
 test('prioritizes the aspectRatio prop over the preferredAspectRatio in the data', () => {
-  const expected = {
-    srcSet:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/e428bc-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/58b2ba-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/95c885-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/b3a373-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/widescreen/6ceb83-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w',
-    src:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
-  }
+  const expected = objectMother()
+  expected.srcSet =
+    'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/5ecd52-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/de193e-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/7cb7e2-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/822d4e-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/square/f977a8-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000w'
 
   const { getByAltText } = render(
-    <Image image={imageWithPreferred} aspectRatio="widescreen" />
+    <Image image={imageWithPreferred} aspectRatio="square" />
   )
 
   const img = getByAltText('Serena Brook opens our show at The Town Hall')
@@ -68,18 +82,10 @@ test('prioritizes the aspectRatio prop over the preferredAspectRatio in the data
 })
 
 test('takes in a "sizes" string to specify image behavior based on viewport', () => {
-  const expected = {
-    sizes: '(min-width: 960px) 720px, 100vw',
-    src:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg'
-  }
+  const expected = objectMother()
 
   const { getByAltText } = render(
-    <Image
-      image={imageWithPreferred}
-      aspectRatio="widescreen"
-      sizes="(min-width: 960px) 720px, 100vw"
-    />
+    <Image image={image} sizes="(min-width: 960px) 720px, 100vw" />
   )
 
   const img = getByAltText('Serena Brook opens our show at The Town Hall')
@@ -89,12 +95,8 @@ test('takes in a "sizes" string to specify image behavior based on viewport', ()
   expect(img).toHaveAttribute('sizes', expect.stringContaining(expected.sizes))
 })
 
-test('allows you to set the className with the elementClass property', () => {
-  const expected = {
-    src:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg',
-    class: 'test'
-  }
+test('allows you to set the class with the elementClass property', () => {
+  const expected = objectMother()
 
   const { getByAltText } = render(
     <Image
@@ -113,18 +115,12 @@ test('allows you to set the className with the elementClass property', () => {
 })
 
 test('creates image when all fallbacks are provided', () => {
-  const expected = {
-    alt: 'Some nice lawn chairs',
-    src:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
-    srcSet:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
-  }
+  const expected = objectMother()
 
   const { getByAltText } = render(
     <Image
-      fallbackSrc={expected.src}
-      fallbackSrcSet={expected.srcSet}
+      fallbackSrc={expected.fallbackSrc}
+      fallbackSrcSet={expected.fallbackSrcSet}
       alt={expected.alt}
     />
   )
@@ -132,26 +128,19 @@ test('creates image when all fallbacks are provided', () => {
   const img = getByAltText('Some nice lawn chairs')
 
   expect(img).toBeInTheDocument()
-  expect(img).toHaveAttribute('src', expect.stringContaining(expected.src))
+  expect(img).toHaveAttribute(
+    'src',
+    expect.stringContaining(expected.fallbackSrc)
+  )
   expect(img).toHaveAttribute(
     'srcSet',
-    expect.stringContaining(expected.srcSet)
+    expect.stringContaining(expected.fallbackSrcSet)
   )
   expect(img).toHaveAttribute('alt', expect.stringContaining(expected.alt))
 })
 
 test('creates image based on data when all fallbacks are also provided', () => {
-  const expected = {
-    srcSet:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/35bd3b-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/04a63f-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/72bc48-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f20034-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000',
-    src:
-      'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg',
-    alt: 'Some nice lawn chairs',
-    fallbackSrc:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg',
-    fallbackSrcSet:
-      'https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_1400.jpg 1400w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_700.jpg 700w, https://s3-us-west-2.amazonaws.com/s.cdpn.io/298/wolf_20131015_003_400.jpg 400w'
-  }
+  const expected = objectMother()
 
   const { getByAltText } = render(
     <Image
@@ -166,7 +155,7 @@ test('creates image based on data when all fallbacks are also provided', () => {
   expect(img).toBeInTheDocument()
   expect(img).toHaveAttribute('src', expect.stringContaining(expected.src))
   expect(img).toHaveAttribute(
-    'srcSet',
+    'srcset',
     expect.stringContaining(expected.srcSet)
   )
 })

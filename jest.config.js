@@ -5,7 +5,6 @@ module.exports = {
     '!**/__tests__/**',
     '!**/node_modules/**'
   ],
-  setupFiles: ['jest-prop-type-error'],
   setupFilesAfterEnv: ['./src/setupTests.js']
   //coverageThreshold: {
   //global: {
