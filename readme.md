@@ -1,14 +1,7 @@
----
-name: @apmg/mimas 
-route: /
----
-import Image from './Image'
-import { image } from './__tests__/data/image'
+[![MPR Logo](/mpr-logo-footer.svg)](/docs)
 
-[![MPR Logo]('../public/mpr-logo-footer.svg')]('/docs')
-
-[![NPM Stable Release]('https://badgen.net/npm/v/@apmg/mimas/pink')]('https://www.npmjs.com/package/@apmg/mimas')
-[![MIT License]('https://badgen.net/badge/license/MIT/blue')]('https://github.com/apmg/apm-mimas/blob/master/LICENSE.md')
+[![NPM Stable Release](https://badgen.net/npm/v/@apmg/mimas/pink)](https://www.npmjs.com/package/@apmg/mimas)
+[![MIT License](https://badgen.net/badge/license/MIT/blue)](https://github.com/apmg/apm-mimas/blob/master/LICENSE.md)
 
 `@apmg/mimas` is a small library that takes an endpoint from American Public Media's internal image API and turns it into a valid `<img />` or `<amp-img />` object with a `srcset` and proper sizing. This library is used on its own and in our other component libraries, such as [Titan](http://github.com/APMG/titan) and [Amat React](http://github.com/APMG/amat-react).
 
@@ -29,11 +22,7 @@ import { imageData } from './__tests__/data/image'
 <Image image={imageData} aspectRatio='widescreen' />
 ```
 
-Would produce the following image:
-
-<Image image={image} aspectRatio='widescreen' />
-
-Presuming that the data fed into the `image` property looked like this:
+Will produce a large widescreen image in the app at the appropriate size for the viewport, presuming that the data fed into the `image` property looked like this.
 
 ```javascript
 const imageWithPreferred = {

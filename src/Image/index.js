@@ -1,14 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { getAlt, getSrc, getSrcSet } from '../utils/utils'
-import styles from '../styles/image.module.scss'
 
 // Ideally, this component will take in an image object formatted by our images API and spit out an image with a proper srcset. However, I also thought I should provide a couple of fallback options, in case you want to use an image from somewhere else entirely: fallbackSrcSet and fallbackSrc. The last one will just create a normal img tag, so I really don't recommend it.
 
 const Image = (props) => {
   return (
     <img
-      styles={styles}
       className={props.elementClass}
       src={getSrc(props)}
       alt={getAlt(props)}
@@ -40,7 +38,7 @@ Image.propTypes = {
       portrait: aspectRatioType,
       uncropped: aspectRatioType
     }),
-    fallback: PropTypes.string,
+    fallback: PropTypes.string.isRequired,
     long_caption: PropTypes.string,
     short_caption: PropTypes.string,
     width: PropTypes.string,

@@ -1,12 +1,14 @@
 export default {
+  title: '@apmg/mimas',
   src: './src',
   base: '/docs/',
   dest: '/docs',
   ignore: [
-    'readme.md',
     'changelog.md',
     'code_of_conduct.md',
     'contributing.md',
-    'license.md'
-  ]
+    'license.md',
+    'readme.md'
+  ],
+  menu: ['Getting Started', 'Image', 'AmpImage']
 }
