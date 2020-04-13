@@ -1,6 +1,6 @@
-[![MPR Logo](/mpr-logo-footer.svg)](/docs)
+# `@apmg/mimas`
 
-[![NPM Stable Release](https://badgen.net/npm/v/@apmg/mimas/pink)](https://www.npmjs.com/package/@apmg/mimas)
+[![NPM Stable Release](https://badgen.net/npm/v/@apmg/mimas)](https://www.npmjs.com/package/@apmg/mimas)
 [![MIT License](https://badgen.net/badge/license/MIT/blue)](https://github.com/apmg/apm-mimas/blob/master/LICENSE.md)
 
 `@apmg/mimas` is a small library that takes an endpoint from American Public Media's internal image API and turns it into a valid `<img />` or `<amp-img />` object with a `srcset` and proper sizing. This library is used on its own and in our other component libraries, such as [Titan](http://github.com/APMG/titan) and [Amat React](http://github.com/APMG/amat-react).
