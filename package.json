@@ -24,6 +24,7 @@
     "dev": "rollup -c -w",
     "test": "jest --watch",
     "test:ci": "jest",
+    "test:coverage": "jest --coverage",
     "eslint": "eslint .",
     "sasslint": "sass-lint -c .sass-lint.yml -v -q",
     "prettier": "prettier --check '**/**.js'",
@@ -84,5 +85,7 @@
     "sass-lint": "^1.13.1",
     "sass-loader": "^7.3.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
 }

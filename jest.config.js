@@ -5,13 +5,13 @@ module.exports = {
     '!**/__tests__/**',
     '!**/node_modules/**'
   ],
-  setupFilesAfterEnv: ['./src/setupTests.js']
-  //coverageThreshold: {
-  //global: {
-  //statements: 10,
-  //branches: 10,
-  //functions: 10,
-  //lines: 10
-  //}
-  //}
+  setupFilesAfterEnv: ['./src/setupTests.js'],
+  coverageThreshold: {
+    global: {
+      statements: 85,
+      branches: 80,
+      functions: 100,
+      lines: 85
+    }
+  }
 }

@@ -36,6 +36,8 @@ const AmpImage = (props) => {
       src={src}
       alt={getAlt(props)}
       srcSet={getSrcSet(props)}
+      height={props.fallbackHeight ? props.fallbackHeight : '225'}
+      width={props.fallbackWidth ? props.fallbackWidth : '400'}
       sizes={props.sizes}
       layout="responsive"
     />
@@ -86,6 +88,8 @@ AmpImage.propTypes = {
   fallbackSrc: PropTypes.string,
   alt: PropTypes.string,
   sizes: PropTypes.string,
+  fallbackHeight: PropTypes.string,
+  fallbackWidth: PropTypes.string,
   mustProvideOne: function(props) {
     if (!props['image'] && !props['fallbackSrc']) {
       return new Error(

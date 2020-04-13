@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import AmpImage from '..'
-import { image, imageWithPreferred } from '../../__data__/image'
+import { image, imageWithPreferred } from '../../__testdata__/image'
 
 // This is basically a more limited selection of the same tests from Image, since the functionality is very similar, but the code is repeated, so they could change independently. I have added checks for those few AMP specific features, such as styles and needing a width and height.
 
@@ -30,6 +30,51 @@ function objectMother() {
 }
 
 // SUCCESSES
+
+test('has styles required to make amp-img not expand off the page', () => {
+  const { container } = render(<AmpImage image={image} />)
+  const img = container.firstChild
+
+  expect(img).toHaveAttribute(
+    'style',
+    expect.stringContaining('max-width: 100%')
+  )
+})
+
+test('provides width and height required by AMP based on instances', () => {
+  const { container } = render(<AmpImage image={image} />)
+  const img = container.firstChild
+
+  expect(img).toHaveAttribute('width', expect.stringContaining('400'))
+  expect(img).toHaveAttribute('height', expect.stringContaining('320'))
+})
+
+test('provides default width and height no matter what, as required by AMP', () => {
+  const expected = objectMother()
+  const { container } = render(
+    <AmpImage fallbackSrc={expected.fallbackSrc} alt={expected.alt} />
+  )
+  const img = container.firstChild
+
+  expect(img).toHaveAttribute('width', expect.stringContaining('400'))
+  expect(img).toHaveAttribute('height', expect.stringContaining('225'))
+})
+
+test('allows you to manually set width and height if there are no instances', () => {
+  const expected = objectMother()
+  const { container } = render(
+    <AmpImage
+      fallbackSrc={expected.fallbackSrc}
+      alt={expected.alt}
+      fallbackWidth="900"
+      fallbackHeight="500"
+    />
+  )
+  const img = container.firstChild
+
+  expect(img).toHaveAttribute('width', expect.stringContaining('900'))
+  expect(img).toHaveAttribute('height', expect.stringContaining('500'))
+})
 
 test('creates the correct AMP image when properly formatted image data is provided', () => {
   const expected = objectMother()

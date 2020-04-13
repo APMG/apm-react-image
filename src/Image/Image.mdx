@@ -2,22 +2,36 @@
 name: Image 
 route: /image
 ---
+import Image from '.'
+import { image } from '../__testdata__/image'
+import '../styles/image.module.scss'
 
-# Image
+# `<Image />`
 
-A component that takes an endpoint from American Public Media's internal image API and turns it into a valid `<img />` or `<amp-img />` object with a `srcset` and proper sizing. It can also be given a `srcset` and/or `src` manually via the fallback props.
+A component that takes an endpoint from American Public Media's internal image API and turns it into a valid `<img />` object with a `srcset` and proper sizing. It can also be given a `srcset` and/or `src` manually via the fallback props. For example, this:
 
-TODO: Explain a bit of the logic of the component, how it decides which aspect ratio it should use depending on the root data and what the CMS user specified at time of creation.
+```javascript
+import { Image } from '@apmg/mimas'
+import { imageData } from './data/image'
+
+<Image image={imageData} aspectRatio='widescreen' />
+```
+
+Would produce the following image:
+
+<Image image={image} aspectRatio='widescreen' />
+
+Most of the logic that parses the image data to either find or generate the required image information can be found on the [utils](/utils) page.
 
 ## Props
 
-### image
+### `image`
 
-A JSON endpoint from APM's Image API. If formatted as expected, this component will create the src, srcset, sizes, alt text, and so on and allow you to select the aspectRatio with a single phrase.
+A JSON endpoint from APM's Image API. If formatted as expected, this component will create the src, srcset, sizes, alt text, and aspect ratio.
 
-### aspectRatio
+### `aspectRatio`
 
-Allows you to select one of the aspect ratios provided in the image endpoint. Can only be used if the **image** property is provided. Accepts one of the following strings:
+Allows you to manually select one of the aspect ratios provided in the image endpoint. Can only be used if the `image` property data is provided and valid. Accepts one of the following strings:
 
 * normal
 * square
@@ -26,18 +40,18 @@ Allows you to select one of the aspect ratios provided in the image endpoint. Ca
 * portrait
 * uncropped
 
-### fallbackSrcSet
+### `fallbackSrcSet`
 
-Accepts a string with a srcset and overrides any srcset generated with the **image** prop (if applicable). 
+Accepts a srcset string and overrides any srcset generated from the `image` prop (if applicable). 
 
-### fallbackSrc
+### `fallbackSrc`
 
-Accepts a string with a URL and overrides any src set by the **image** prop (if applicable). 
+Accepts a URL string and overrides any src set by the `image` prop (if applicable). 
 
-### alt
+### `alt`
 
-Accepts a string and overrides any alt phrase set by the **image** prop (if applicable).
+Accepts a string and overrides any alt phrase set by the `image` prop (if applicable).
 
-### sizes
+### `sizes`
 
-Accepts a string and overrides any size attribute set by the **image** prop (if applicable).
+Accepts a string and overrides any sizes attribute set by the `image` prop (if applicable).

@@ -1,10 +1,10 @@
-const determineAspectRatio = ({ aspectRatio, image }) => {
-  if (aspectRatio) {
-    return aspectRatio
-  } else if (image.preferredAspectRatio) {
+const determineAspectRatio = (props) => {
+  if (props.aspectRatio) {
+    return props.aspectRatio
+  } else if (props.image.preferredAspectRatio) {
     return false
-  } else if (image && image.preferred_aspect_ratio_slug) {
-    return image.preferred_aspect_ratio_slug
+  } else if (props.image && props.image.preferred_aspect_ratio_slug) {
+    return props.image.preferred_aspect_ratio_slug
   } else {
     return 'uncropped'
   }
@@ -17,6 +17,8 @@ const generateSrcSet = (instances) => {
 }
 
 export const getSrcSet = (props) => {
+  if (!props) return null
+
   let { image, aspectRatio, fallbackSrcSet } = props
 
   if (image) {
@@ -30,8 +32,10 @@ export const getSrcSet = (props) => {
       )
     } else if (image.preferredAspectRatio) {
       return generateSrcSet(image.preferredAspectRatio.instances)
-    } else {
+    } else if (image.srcset) {
       return image.srcset
+    } else if (fallbackSrcSet) {
+      return fallbackSrcSet
     }
   } else if (fallbackSrcSet) {
     return fallbackSrcSet
@@ -41,6 +45,8 @@ export const getSrcSet = (props) => {
 }
 
 export const getInstances = (props) => {
+  if (!props) return []
+
   let { image, aspectRatio } = props
 
   if (image) {
@@ -57,7 +63,11 @@ export const getInstances = (props) => {
   return []
 }
 
-export const getSrc = ({ image, fallbackSrc }) => {
+export const getSrc = (props) => {
+  if (!props) return []
+
+  let { image, fallbackSrc } = props
+
   if (image && image.fallback) {
     return image.fallback
   } else {
@@ -65,7 +75,11 @@ export const getSrc = ({ image, fallbackSrc }) => {
   }
 }
 
-export const getAlt = ({ alt, image }) => {
+export const getAlt = (props) => {
+  if (!props) return []
+
+  let { alt, image } = props
+
   if (alt) {
     return alt
   } else if (image && image.short_caption) {

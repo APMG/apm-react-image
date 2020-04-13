@@ -3,7 +3,7 @@ name: Getting Started
 route: /
 ---
 import Image from './Image'
-import { image } from './__data__/image'
+import { image } from './__testdata__/image'
 import './styles/image.module.scss'
 
 [![MPR Logo](../public/mpr-logo-footer.svg)](/docs)
@@ -24,8 +24,8 @@ In files where you want to use the `<Image />` component, `import { Image } from
 For example, this:
 
 ```javascript
-import Image from './Image'
-import { imageData } from './__tests__/data/image'
+import { Image } from '@apmg/mimas'
+import { imageData } from './data/image'
 
 <Image image={imageData} aspectRatio='widescreen' />
 ```

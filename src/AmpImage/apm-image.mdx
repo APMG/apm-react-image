@@ -2,44 +2,70 @@
 name: AmpImage 
 route: /amp-image
 ---
+import AmpImage from '.'
+import { image } from '../__testdata__/image'
+import '../styles/image.module.scss'
 
-# AmpImage
+# `<AmpImage />`
 
-A component for displaying an image for AMP html, primarily from APM's image API. It pretty much works the same as the regular [`<Image />`](/image) component, but it will hard set the width and height of the image to 400 and 225 if it can't find that info any other way, since AMP requires those properties.
+A component that takes an endpoint from American Public Media's internal image API and turns it into a valid `<amp-img />` object with a `srcset` and proper sizing. It can also be given a `srcset` and/or `src` manually via the fallback props. For example, this:
+
+```javascript
+import { AmpImage } from '@apmg/mimas'
+import { imageData } from './data/image'
+
+<AmpImage image={imageData} aspectRatio='widescreen' />
+```
+
+Would produce the following image (which won't appear on this docs site because I am not making this AMP, but you should be able to see the markup if you inspect this element in the browser).
+
+#### Right click below to examine the AMP goodness
+
+<AmpImage image={image} aspectRatio='widescreen' />
 
 We include one inline style with the AMP Image because it's hard to think of a single scenario where we wouldn't want the `maxWidth` of the image to be `100%`, and it's a bit baffling that the visual breaks by default.
 
-TODO: explain more of this logic and where it differs from `<Image />`
-
 ## Props
 
-### image
+### `image`
 
-A JSON endpoint from APM's Image API. If formatted as expected, this component will create the src, srcset, sizes, alt text, and so on and allow you to select the aspectRatio with a single phrase.
+A JSON endpoint from APM's Image API. If formatted as expected, this component will create the src, srcset, sizes, alt text, width, height, and aspect ratio.
 
-### aspectRatio
+### `aspectRatio`
 
-Allows you to select one of the aspect ratios provided in the image endpoint. Can only be used if the **image** property is provided. Accepts one of the following strings:
+Allows you to manually select one of the aspect ratios provided in the image endpoint. Can only be used if the `image` property data is provided and valid. Accepts one of the following strings:
 
-- normal
-- square
-- thumbnail
-- widescreen
-- portrait
-- uncropped
+* normal
+* square
+* thumbnail
+* widescreen
+* portrait
+* uncropped
 
-### fallbackSrcSet
+### `elementClass`
 
-Accepts a string with a srcset and overrides any srcset generated with the **image** prop (if applicable).
+Accepts a string that will set the className of the `<img />` object
 
-### fallbackSrc
+### `fallbackSrcSet`
 
-Accepts a string with a URL and overrides any src set by the **image** prop (if applicable).
+Accepts a srcset string and overrides any srcset generated from the `image` prop (if applicable). 
 
-### alt
+### `fallbackSrc`
 
-Accepts a string and overrides any alt phrase set by the **image** prop (if applicable).
+Accepts a URL string and overrides any src set by the `image` prop (if applicable). 
 
-### sizes
+### `alt`
 
-Accepts a string and overrides any size attribute set by the **image** prop (if applicable).
+Accepts a string and overrides any alt phrase set by the `image` prop (if applicable).
+
+### `sizes`
+
+Accepts a string and overrides any sizes attribute set by the `image` prop (if applicable).
+
+### `fallbackHeight`
+
+Accepts a string with a number. Allows you to manually provide the height mandatory on AMP pages.
+
+### `fallbackWidth`
+
+Accepts a string with a number. Allows you to manually provide the width mandatory on AMP pages.

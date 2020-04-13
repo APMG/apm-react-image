@@ -1,7 +1,7 @@
 export default {
   title: '@apmg/mimas',
   src: './src',
-  base: '/docs/',
+  base: '/',
   dest: '/docs',
   ignore: [
     'changelog.md',

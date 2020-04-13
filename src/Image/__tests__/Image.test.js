@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import Image from '..'
-import { image, imageWithPreferred } from '../../__data__/image'
+import { image, imageWithPreferred } from '../../__testdata__/image'
 
 function objectMother() {
   const srcSet =
