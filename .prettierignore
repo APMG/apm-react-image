@@ -1,4 +1,7 @@
 # Location of CSS:
 src/styles/**/*
+coverage
 # Location of built files:
 dist/**/*
+.docz
+docs

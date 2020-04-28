@@ -1,4 +1,9 @@
 node_modules
 .storybook
+.docz
+__tests__
+__data__
+__mocks__
 
 **/*.story.js
+**/*.test.js
