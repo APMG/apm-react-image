@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import AmpImage from '..'
+import AmpImage from '../AmpImage'
 import { image, imageWithPreferred } from '../../__testdata__/image'
 
 // This is basically a more limited selection of the same tests from Image, since the functionality is very similar, but the code is repeated, so they could change independently. I have added checks for those few AMP specific features, such as styles and needing a width and height.

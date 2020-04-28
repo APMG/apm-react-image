@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import Image from '..'
+import Image from '../Image'
 import { image, imageWithPreferred } from '../../__testdata__/image'
 
 function defaultProps() {
