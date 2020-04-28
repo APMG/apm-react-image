@@ -5,7 +5,7 @@ import { image, imageWithPreferred } from '../../__testdata__/image'
 
 // This is basically a more limited selection of the same tests from Image, since the functionality is very similar, but the code is repeated, so they could change independently. I have added checks for those few AMP specific features, such as styles and needing a width and height.
 
-function objectMother() {
+function defaultProps() {
   const srcSet =
     'https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/35bd3b-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f5db37-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 600w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/04a63f-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1000w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/72bc48-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 1400w,https://img.apmcdn.org/c2c452354fbff94d720ba8f86e2c71ba7427b306/uncropped/f20034-20181220-serena-brook-opens-our-show-at-the-town-hall.jpg 2000'
   const src =
@@ -31,7 +31,7 @@ function objectMother() {
 
 // SUCCESSES
 
-test('has styles required to make amp-img not expand off the page', () => {
+test('bug fix: has styles required to make amp-img not expand off the page', () => {
   const { container } = render(<AmpImage image={image} />)
   const img = container.firstChild
 
@@ -50,7 +50,7 @@ test('provides width and height required by AMP based on instances', () => {
 })
 
 test('provides default width and height no matter what, as required by AMP', () => {
-  const expected = objectMother()
+  const expected = defaultProps()
   const { container } = render(
     <AmpImage fallbackSrc={expected.fallbackSrc} alt={expected.alt} />
   )
@@ -61,7 +61,7 @@ test('provides default width and height no matter what, as required by AMP', () 
 })
 
 test('allows you to manually set width and height if there are no instances', () => {
-  const expected = objectMother()
+  const expected = defaultProps()
   const { container } = render(
     <AmpImage
       fallbackSrc={expected.fallbackSrc}
@@ -77,7 +77,7 @@ test('allows you to manually set width and height if there are no instances', ()
 })
 
 test('creates the correct AMP image when properly formatted image data is provided', () => {
-  const expected = objectMother()
+  const expected = defaultProps()
 
   const { container } = render(<AmpImage image={image} />)
 
@@ -93,7 +93,7 @@ test('creates the correct AMP image when properly formatted image data is provid
 })
 
 test('allows you to set the class with the elementClass property', () => {
-  const expected = objectMother()
+  const expected = defaultProps()
 
   const { container } = render(
     <AmpImage
@@ -111,7 +111,7 @@ test('allows you to set the class with the elementClass property', () => {
 })
 
 test('creates image when all fallbacks are provided', () => {
-  const expected = objectMother()
+  const expected = defaultProps()
 
   const { container } = render(
     <AmpImage
