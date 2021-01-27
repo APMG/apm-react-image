@@ -73,6 +73,7 @@
     "react-router": "^5.1.2",
     "rimraf": "^3.0.2",
     "rollup": "^1.31.0",
-    "rollup-plugin-babel": "^4.3.3"
+    "rollup-plugin-babel": "^4.3.3",
+    "loading-attribute-polyfill": "^1.5.4"
   }
 }

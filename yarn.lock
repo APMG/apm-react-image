@@ -3581,6 +3581,11 @@ load-json-file@^4.0.0:
     pify "^3.0.0"
     strip-bom "^3.0.0"
 
+loading-attribute-polyfill@^1.5.4:
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/loading-attribute-polyfill/-/loading-attribute-polyfill-1.5.4.tgz#6c21f62265f1857eed6aa9fb548b1ab90c298e1c"
+  integrity sha512-snHz0lLNHZKIch9m82GbsEBOJGlsvl738Uk5iJwaoqNrxnTVT+bWCxp2SpNpXfKZXOPGB49TJ24GS5l4QwTkkw==
+
 locate-path@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/locate-path/-/locate-path-2.0.0.tgz#2b568b265eec944c6d9c0de9c3dbbbca0354cd8e"
