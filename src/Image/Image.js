@@ -12,6 +12,7 @@ const Image = (props) => {
       alt={getAlt(props)}
       srcSet={getSrcSet(props)}
       sizes={props.sizes}
+      loading={props.loading}
     />
   )
 }
@@ -60,6 +61,7 @@ Image.propTypes = {
   fallbackSrc: PropTypes.string,
   alt: PropTypes.string,
   sizes: PropTypes.string,
+  loading: PropTypes.string,
   mustProvideOne: function(props) {
     if (!props['image'] && !props['fallbackSrc']) {
       return new Error(
